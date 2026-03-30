@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 
 import { errorHandler } from './middleware/error.middleware';
 import authRoutes from './modules/auth/auth.routes';
+import userRoutes from './modules/users/user.routes';
 
 dotenv.config();
 
@@ -23,6 +24,11 @@ app.use(express.json());
  * Auth Module
  */
 app.use('/api/auth', authRoutes);
+
+/**
+ * Users Module
+ */
+app.use('/api/users', userRoutes);
 
 /**
  * Routes Placeholder
