@@ -7,6 +7,8 @@ import dotenv from 'dotenv';
 import { errorHandler } from './middleware/error.middleware';
 import authRoutes from './modules/auth/auth.routes';
 import userRoutes from './modules/users/user.routes';
+import categoryRoutes from './modules/categories/category.routes';
+import supplierRoutes from './modules/suppliers/supplier.routes';
 
 dotenv.config();
 
@@ -29,6 +31,12 @@ app.use('/api/auth', authRoutes);
  * Users Module
  */
 app.use('/api/users', userRoutes);
+
+/**
+ * Categories & Suppliers Module
+ */
+app.use('/api/categories', categoryRoutes);
+app.use('/api/suppliers', supplierRoutes);
 
 /**
  * Routes Placeholder
