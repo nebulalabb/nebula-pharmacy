@@ -11,6 +11,7 @@ import categoryRoutes from './modules/categories/category.routes';
 import supplierRoutes from './modules/suppliers/supplier.routes';
 import productRoutes from './modules/products/products.routes';
 import purchaseRoutes from './modules/purchase/purchase.routes';
+import inventoryRoutes from './modules/inventory/inventory.routes';
 
 dotenv.config();
 
@@ -42,9 +43,10 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/suppliers', supplierRoutes);
 
 /**
- * Purchase Orders Module
+ * Purchase & Inventory Module
  */
 app.use('/api/purchase-orders', purchaseRoutes);
+app.use('/api/inventory', inventoryRoutes);
 
 /**
  * Routes Placeholder
