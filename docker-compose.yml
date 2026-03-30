@@ -1,6 +1,7 @@
 # docker-compose.yml
 services:
   postgres:
+    container_name: pharmacy-postgres
     image: postgres:15
     environment:
       POSTGRES_DB: pharmacy_db
@@ -9,6 +10,6 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - pharmacy_postgres_data:/var/lib/postgresql/data
 volumes:
-  postgres_data:
+  pharmacy_postgres_data:
