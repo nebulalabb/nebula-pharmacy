@@ -101,18 +101,45 @@ export const getDashboardStats = async () => {
   const todayProfit = await getProfit(start, end);
 
   // 2. Stock Alerts
-  // Count products where totalStock <= minStockLevel
+  // Fetch low stock items (totalStock <= minStockLevel)
   const allProducts = await prisma.product.findMany({
     include: { inventoryBatches: { select: { quantityRemaining: true } } },
   });
 
-  const lowStockCount = allProducts.filter((p) => {
-    const totalStock = p.inventoryBatches.reduce((s, b) => s + b.quantityRemaining, 0);
+  const lowStockItemsRaw = allProducts.filter((p: any) => {
+    const totalStock = p.inventoryBatches.reduce((s: number, b: any) => s + b.quantityRemaining, 0);
     return totalStock <= p.minStockLevel;
-  }).length;
+  });
+
+  const lowStockItems = lowStockItemsRaw.slice(0, 5).map(p => ({
+    id: p.id,
+    name: p.name,
+    type: 'low-stock',
+    value: p.inventoryBatches.reduce((s, b) => s + b.quantityRemaining, 0)
+  }));
+
+  const lowStockCount = lowStockItemsRaw.length;
 
   // 3. Expiring Alerts (Next 30 days)
   const thirtyDaysLater = subDays(today, -30);
+  const expiringBatches = await prisma.inventoryBatch.findMany({
+    where: {
+      expiryDate: { lte: thirtyDaysLater, gte: today },
+      quantityRemaining: { gt: 0 },
+    },
+    include: { product: { select: { name: true } } },
+    orderBy: { expiryDate: 'asc' },
+    take: 5
+  });
+
+  const expiringItems = expiringBatches.map(b => ({
+    id: b.id,
+    name: b.product.name,
+    type: 'expiring',
+    date: b.expiryDate ? b.expiryDate.toISOString().split('T')[0] : 'N/A',
+    value: b.quantityRemaining
+  }));
+
   const expiringCount = await prisma.inventoryBatch.count({
     where: {
       expiryDate: { lte: thirtyDaysLater, gte: today },
@@ -131,6 +158,7 @@ export const getDashboardStats = async () => {
     });
   }
 
+  // 5. Build Final Response
   return {
     todayRevenue,
     todayOrders,
@@ -138,5 +166,6 @@ export const getDashboardStats = async () => {
     lowStockCount,
     expiringCount,
     revenueChart: last7Days,
+    alerts: [...lowStockItems, ...expiringItems]
   };
 };
