@@ -13,6 +13,7 @@ import productRoutes from './modules/products/products.routes';
 import purchaseRoutes from './modules/purchase/purchase.routes';
 import inventoryRoutes from './modules/inventory/inventory.routes';
 import salesRoutes from './modules/sales/sales.routes';
+import reportsRoutes from './modules/reports/reports.routes';
 
 dotenv.config();
 
@@ -49,6 +50,11 @@ app.use('/api/suppliers', supplierRoutes);
 app.use('/api/purchase-orders', purchaseRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/sales', salesRoutes);
+
+/**
+ * Reports Module
+ */
+app.use('/api/reports', reportsRoutes);
 
 /**
  * Routes Placeholder
