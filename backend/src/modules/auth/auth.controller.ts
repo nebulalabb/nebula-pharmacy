@@ -1,3 +1,4 @@
+/// <reference path="../../types/express.d.ts" />
 import { Request, Response } from 'express';
 import * as authService from './auth.service';
 import { successResponse, errorResponse } from '../../utils/response';
@@ -67,10 +68,10 @@ export const getMe = async (req: Request, res: Response) => {
  */
 export const changePassword = async (req: Request, res: Response) => {
   const { oldPassword, newPassword } = req.body;
-  const userId = (req.user as any).id;
+  const userId = req.user!.id;
 
   try {
-    const user = await authService.findByEmail((req.user as any).email);
+    const user = await authService.findByEmail(req.user!.email);
 
     if (!user) {
       return errorResponse(res, 'User not found', 404);

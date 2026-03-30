@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 
 // Layouts
 import MainLayout from '../layouts/MainLayout';
@@ -17,11 +17,22 @@ import PurchaseOrderListPage from '../pages/purchase-orders/PurchaseOrderListPag
 import PurchaseOrderFormPage from '../pages/purchase-orders/PurchaseOrderFormPage';
 import POSPage from '../pages/sales/POSPage';
 import SalesHistoryPage from '../pages/sales/SalesHistoryPage';
-import InventoryPage from '../pages/inventory/InventoryPage';
-import CategoryPage from '../pages/categories/CategoryPage';
-import SupplierPage from '../pages/suppliers/SupplierPage';
-import ReportPage from '../pages/reports/ReportPage';
-import UserManagementPage from '../pages/settings/UserManagementPage';
+
+// Inventory
+import BatchesPage from '../pages/inventory/BatchesPage';
+import ExpiringPage from '../pages/inventory/ExpiringPage';
+import AdjustmentPage from '../pages/inventory/AdjustmentPage';
+
+// Secondary Modules
+import CategoriesPage from '../pages/categories/CategoriesPage';
+import SuppliersPage from '../pages/suppliers/SuppliersPage';
+import StaffPage from '../pages/staff/StaffPage';
+
+// Reports
+import RevenueReportPage from '../pages/reports/RevenueReportPage';
+import ProfitReportPage from '../pages/reports/ProfitReportPage';
+import TopProductsPage from '../pages/reports/TopProductsPage';
+import InventoryReportPage from '../pages/reports/InventoryReportPage';
 
 export const router = createBrowserRouter([
   // Private Routes (Require Login)
@@ -51,17 +62,35 @@ export const router = createBrowserRouter([
           { path: 'sales-history', element: <SalesHistoryPage /> },
 
           // Inventory
-          { path: 'inventory', element: <InventoryPage /> },
+          {
+            path: 'inventory',
+            children: [
+              { path: 'batches', element: <BatchesPage /> },
+              { path: 'expiring', element: <ExpiringPage /> },
+              { path: 'adjust', element: <AdminRoute />, children: [{ path: '', element: <AdjustmentPage /> }] },
+            ]
+          },
 
-          // Admin Only Routes
+          // Reports
+          {
+            path: 'reports',
+            children: [
+              { index: true, element: <Navigate to="revenue" replace /> },
+              { path: 'revenue', element: <RevenueReportPage /> },
+              { path: 'profit', element: <ProfitReportPage /> },
+              { path: 'top-products', element: <TopProductsPage /> },
+              { path: 'inventory', element: <InventoryReportPage /> },
+            ]
+          },
+
+          // Secondary Admin Modules
           {
             path: '/',
             element: <AdminRoute />,
             children: [
-              { path: 'categories', element: <CategoryPage /> },
-              { path: 'suppliers', element: <SupplierPage /> },
-              { path: 'reports', element: <ReportPage /> },
-              { path: 'settings/users', element: <UserManagementPage /> },
+              { path: 'categories', element: <CategoriesPage /> },
+              { path: 'suppliers', element: <SuppliersPage /> },
+              { path: 'staff', element: <StaffPage /> },
             ]
           }
         ]
