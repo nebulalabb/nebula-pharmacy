@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 
 import { errorHandler } from './middleware/error.middleware';
+import authRoutes from './modules/auth/auth.routes';
 
 dotenv.config();
 
@@ -17,6 +18,11 @@ app.use(helmet());
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
+
+/**
+ * Auth Module
+ */
+app.use('/api/auth', authRoutes);
 
 /**
  * Routes Placeholder
