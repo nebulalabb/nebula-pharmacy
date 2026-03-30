@@ -1,0 +1,1 @@
+import { Outlet } from 'react-router-dom'; export default function MainLayout() { return <div className='flex min-h-screen'><div>Sidebar Placeholder</div><main className='flex-1'><header>Header Placeholder</header><div><Outlet /></div></main></div> }
