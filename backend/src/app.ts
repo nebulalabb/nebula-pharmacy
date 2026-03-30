@@ -9,6 +9,7 @@ import authRoutes from './modules/auth/auth.routes';
 import userRoutes from './modules/users/user.routes';
 import categoryRoutes from './modules/categories/category.routes';
 import supplierRoutes from './modules/suppliers/supplier.routes';
+import productRoutes from './modules/products/products.routes';
 
 dotenv.config();
 
@@ -33,8 +34,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 
 /**
- * Categories & Suppliers Module
+ * Products, Categories & Suppliers Module
  */
+app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/suppliers', supplierRoutes);
 
