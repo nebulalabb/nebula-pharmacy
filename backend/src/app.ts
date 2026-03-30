@@ -1,0 +1,44 @@
+import express, { Request, Response } from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import dotenv from 'dotenv';
+
+import { errorHandler } from './middleware/error.middleware';
+
+dotenv.config();
+
+const app = express();
+
+/**
+ * Standard Middleware
+ */
+app.use(helmet());
+app.use(cors());
+app.use(morgan('dev'));
+app.use(express.json());
+
+/**
+ * Routes Placeholder
+ */
+app.get('/', (req: Request, res: Response) => {
+  res.json({
+    message: 'Welcome to Nebula Pharmacy API',
+    status: 'Running',
+    version: '1.0.0'
+  });
+});
+
+/**
+ * Health Check
+ */
+app.get('/health', (req: Request, res: Response) => {
+  res.json({ status: 'OK' });
+});
+
+/**
+ * Global Error Handler (Must be last)
+ */
+app.use(errorHandler);
+
+export default app;
