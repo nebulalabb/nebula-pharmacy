@@ -34,5 +34,13 @@ export const reportsService = {
   getInventoryStatus: async () => {
     const response = await api.get('/reports/inventory-status');
     return response.data;
+  },
+
+  /**
+   * Get unified dashboard stats (Today revenue, profit, orders, alerts)
+   */
+  getDashboardStats: async () => {
+    const response = await api.get('/reports/dashboard');
+    return response.data;
   }
 };

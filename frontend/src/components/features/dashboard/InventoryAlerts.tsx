@@ -20,7 +20,7 @@ interface InventoryAlertsProps {
 
 export const InventoryAlerts: React.FC<InventoryAlertsProps> = ({ 
   alerts, 
-  title = "Immediate Stock Alerts" 
+  title = "Cảnh báo kho hàng khẩn cấp" 
 }) => {
   return (
     <Card className="border-none shadow-md overflow-hidden bg-white h-full flex flex-col">
@@ -31,7 +31,7 @@ export const InventoryAlerts: React.FC<InventoryAlertsProps> = ({
             {title}
           </CardTitle>
           <Link to="/inventory" className="text-xs text-indigo-600 hover:text-indigo-700 font-semibold flex items-center gap-1 group transition-colors">
-            Manage Stock <ChevronRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+            Quản lý kho <ChevronRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
       </CardHeader>
@@ -41,7 +41,7 @@ export const InventoryAlerts: React.FC<InventoryAlertsProps> = ({
             <div className="p-3 bg-slate-50 rounded-full">
               <PackageSearch className="w-6 h-6 text-slate-400" />
             </div>
-            <p className="text-sm font-medium text-slate-500 italic">No urgent stock alerts at the moment.</p>
+            <p className="text-sm font-medium text-slate-500 italic">Hiện tại không có cảnh báo kho hàng khẩn cấp.</p>
           </div>
         ) : (
           <div className="divide-y divide-slate-50">
@@ -65,7 +65,7 @@ export const InventoryAlerts: React.FC<InventoryAlertsProps> = ({
                       {alert.name}
                     </span>
                     <span className="text-[11px] text-slate-400 font-medium">
-                      {alert.type === 'expiring' ? `Expires: ${alert.date}` : `Remain: ${alert.value} unit`}
+                      {alert.type === 'expiring' ? `Hạn dùng: ${alert.date}` : `Còn lại: ${alert.value} đơn vị`}
                     </span>
                   </div>
                 </div>
@@ -76,7 +76,7 @@ export const InventoryAlerts: React.FC<InventoryAlertsProps> = ({
                     alert.type === 'expiring' && "border-amber-200 text-amber-700 bg-amber-50"
                   )}
                 >
-                  {alert.type === 'expiring' ? 'Expiring' : 'Low Stock'}
+                  {alert.type === 'expiring' ? 'Sắp hết hạn' : 'Sắp hết hàng'}
                 </Badge>
               </div>
             ))}

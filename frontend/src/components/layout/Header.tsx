@@ -25,18 +25,18 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Sidebar } from './Sidebar';
 
 const routeTitleMap: Record<string, string> = {
-  '/dashboard': 'Dashboard Overview',
-  '/products': 'Medicine Directory',
-  '/pos': 'Point of Sale (POS)',
-  '/sales-history': 'Sales History',
-  '/purchase-orders': 'Purchase Orders',
-  '/inventory': 'Stock Management',
-  '/inventory/expiring': 'Expiring Soon',
-  '/inventory/adjustments': 'Stock Adjustments',
-  '/suppliers': 'Supplier Management',
-  '/categories': 'Medicine Categories',
-  '/reports': 'Financial Reports',
-  '/settings/users': 'User Management',
+  '/dashboard': 'Tổng quan báo cáo',
+  '/products': 'Danh mục thuốc',
+  '/pos': 'Điểm bán hàng (POS)',
+  '/sales-history': 'Lịch sử giao dịch',
+  '/purchase-orders': 'Phiếu nhập hàng',
+  '/inventory': 'Quản lý kho hàng',
+  '/inventory/expiring': 'Thuốc sắp hết hạn',
+  '/inventory/adjustments': 'Điều chỉnh tồn kho',
+  '/suppliers': 'Nhà cung cấp',
+  '/categories': 'Nhóm thuốc',
+  '/reports': 'Báo cáo doanh thu',
+  '/settings/users': 'Quản lý nhân viên',
 };
 
 export const Header: React.FC = () => {
@@ -79,7 +79,7 @@ export const Header: React.FC = () => {
           <Search className="w-4 h-4 text-slate-400" />
           <input 
             type="text" 
-            placeholder="Search anything..." 
+            placeholder="Tìm kiếm..." 
             className="bg-transparent border-none focus:ring-0 text-sm w-48 text-slate-700 placeholder:text-slate-400"
           />
         </div>
@@ -94,10 +94,10 @@ export const Header: React.FC = () => {
           <div className="hidden lg:flex flex-col text-right">
             <div className="flex items-center gap-1.5 justify-end">
               <Badge variant="destructive" className="px-1.5 py-0 text-[10px] font-bold h-4">
-                <AlertTriangle className="w-3 h-3 mr-1" /> 5 Low Stock
+                <AlertTriangle className="w-3 h-3 mr-1" /> 5 Hàng sắp hết
               </Badge>
             </div>
-            <span className="text-[10px] text-slate-400 font-medium">Alerts monitored</span>
+            <span className="text-[10px] text-slate-400 font-medium">Giám sát kho hàng</span>
           </div>
         </div>
 
@@ -112,20 +112,22 @@ export const Header: React.FC = () => {
               </Avatar>
               <div className="hidden lg:flex flex-col items-start leading-none">
                 <span className="text-sm font-semibold text-slate-800">{user?.name}</span>
-                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider mt-1">{user?.role}</span>
+                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider mt-1">
+                  {user?.role === 'ADMIN' ? 'Quản trị viên' : 'Nhân viên'}
+                </span>
               </div>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56 p-1 border-slate-200 shadow-xl rounded-xl">
-            <DropdownMenuLabel className="font-semibold text-slate-900 px-3 py-2">My Account</DropdownMenuLabel>
+            <DropdownMenuLabel className="font-semibold text-slate-900 px-3 py-2">Tài khoản của tôi</DropdownMenuLabel>
             <DropdownMenuSeparator className="bg-slate-100" />
             <DropdownMenuItem className="rounded-lg focus:bg-indigo-50 px-3 py-2 cursor-pointer group">
               <User className="mr-3 h-4 w-4 text-slate-400 group-hover:text-indigo-600" />
-              <span>Profile Settings</span>
+              <span>Cài đặt cá nhân</span>
             </DropdownMenuItem>
             <DropdownMenuItem className="rounded-lg focus:bg-indigo-50 px-3 py-2 cursor-pointer group">
               <Settings className="mr-3 h-4 w-4 text-slate-400 group-hover:text-indigo-600" />
-              <span>System Preferences</span>
+              <span>Cấu hình hệ thống</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator className="bg-slate-100" />
             <DropdownMenuItem 
@@ -133,7 +135,7 @@ export const Header: React.FC = () => {
               className="rounded-lg focus:bg-red-50 text-red-600 px-3 py-2 cursor-pointer group"
             >
               <LogOut className="mr-3 h-4 w-4 text-red-400 group-hover:text-red-600" />
-              <span className="font-medium">Sign Out</span>
+              <span className="font-medium">Đăng xuất</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

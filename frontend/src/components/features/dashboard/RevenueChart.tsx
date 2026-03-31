@@ -17,7 +17,7 @@ interface RevenueChartProps {
 
 export const RevenueChart: React.FC<RevenueChartProps> = ({ 
   data, 
-  title = "Revenue Trends (Last 7 Days)" 
+  title = "Xu hướng doanh thu (7 ngày qua)" 
 }) => {
   return (
     <Card className="col-span-1 lg:col-span-2 border-none shadow-md overflow-hidden bg-white">
@@ -57,9 +57,9 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
                   border: 'none', 
                   boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' 
                 }}
-                formatter={(value: number) => [
-                  new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value),
-                  'Revenue'
+                formatter={(value: any) => [
+                  new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(Number(value) || 0),
+                  'Doanh thu'
                 ]}
               />
               <Area 
